@@ -32,3 +32,18 @@ export interface CHARACTER {
   events?: C_CATEGORY;
   urls?: C_URL;
 }
+
+export interface RESULT_DATA {
+  offset: number;
+  limit: number;
+  total: number;
+  count: number;
+  results: CHARACTER[];
+}
+
+export interface RESPONSE_RESULT {
+  data: RESULT_DATA;
+  code: number;
+  status: string;
+  copyright: string;
+}

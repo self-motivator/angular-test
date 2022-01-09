@@ -1,8 +1,6 @@
 <div class="container">
   <mat-card>
-    <mat-card-title>Marvel Characters</mat-card-title>
     <mat-card-content>
-      <!-- a list of characters -->
       <form fxLayout="row" fxLayoutAlign="end start" (ngSubmit)="onSearchCharactor()">
         <mat-form-field appearance="outline">
           <mat-label>Search Name</mat-label>
@@ -11,19 +9,28 @@
         </mat-form-field>
       </form>
 
-      <mat-nav-list>
-        <a mat-list-item [routerLink]="'/character/' + c.position" *ngFor="let c of characters">
-          <img matListAvatar src="http://i.annihil.us/u/prod/marvel/i/mg/c/e0/535fecbbb9784.jpg" [alt]="c.name">
-          <h3 matLine> {{c.name}} </h3>
-          <p matLine>
-            <span> {{c.weight}} </span>
-            <span class="demo-2"> -- {{c.symbol}} </span>
-          </p>
-          <mat-divider></mat-divider>
-        </a>
-      </mat-nav-list>
+      <!-- a list of characters -->
+      <div fxLayout="row wrap" class="character_container">
+        <mat-card fxFlex="100%" fxFlex.sm="0 1 calc(50% - 16px)" fxFlex.md="0 1 calc(25% - 16px)"
+          fxFlex.lg="0 1 calc(16.6666% - 16px)" fxFlex.gt-lg="0 1 calc(10% - 16px)"
+          *ngFor="let c of characters$ | async" class="character_card">
+          <a [routerLink]="'/character/' + c.id" target="_blank">
+            <img class="character_avatar" [src]="c.thumbnail.path + '.' + c.thumbnail.extension" [alt]="c.name">
+            <p class="character_name">
+              {{c.name}}
+            </p>
+          </a>
+        </mat-card>
+      </div>
+
+      <div *ngIf="!(characters$ | async) || (characters$ | async)?.length === 0">
+        <p class='mat-h1' style="text-align: center">
+          No Results
+        </p>
+      </div>
+
       <!-- Paginator -->
-      <mat-paginator [length]="pageLength" [pageSize]="10" [pageSizeOptions]="[10, 20, 50]" showFirstLastButtons
+      <mat-paginator [length]="pageLength$ | async" [pageSize]="20" [pageSizeOptions]="[20, 50]" showFirstLastButtons
         aria-label="Select page" (page)="onChangePage()">
       </mat-paginator>
     </mat-card-content>

@@ -1,6 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MatPaginator } from '@angular/material/paginator';
+import { map } from 'rxjs';
+import { CharacterStateService } from 'src/app/services/character.state.service';
 
 @Component({
   selector: 'app-characters',
@@ -8,41 +10,34 @@ import { MatPaginator } from '@angular/material/paginator';
   styleUrls: ['./characters.component.scss'],
 })
 export class CharactersComponent implements OnInit {
-  characters = ELEMENT_DATA;
-  pageLength: number = 100;
+  private chractersData$ = this.chStateService.chracters$;
+  characters$ = this.chractersData$.pipe(map((p) => p?.results));
+  pageLength$ = this.chractersData$.pipe(map((p) => p?.total));
+
   searchKey = new FormControl('');
 
-  constructor() {}
+  constructor(private chStateService: CharacterStateService) {}
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
   ngOnInit(): void {}
 
   onChangePage(): void {
-    console.log(this.paginator.pageIndex);
+    this.onSearchCharacters();
   }
 
   onSearchCharactor(): void {
-    console.log({ searchKey: this.searchKey.value });
+    this.paginator.pageIndex = 0;
+    this.onSearchCharacters();
+  }
+
+  private onSearchCharacters(): void {
+    if (this.searchKey.value.trim().length === 0) return;
+
+    this.chStateService.getChracters(
+      this.searchKey.value,
+      this.paginator.pageIndex * this.paginator.pageSize,
+      this.paginator.pageSize
+    );
   }
 }
-
-export interface PeriodicElement {
-  name: string;
-  position: number;
-  weight: number;
-  symbol: string;
-}
-
-const ELEMENT_DATA: PeriodicElement[] = [
-  { position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H' },
-  { position: 2, name: 'Helium', weight: 4.0026, symbol: 'He' },
-  { position: 3, name: 'Lithium', weight: 6.941, symbol: 'Li' },
-  { position: 4, name: 'Beryllium', weight: 9.0122, symbol: 'Be' },
-  { position: 5, name: 'Boron', weight: 10.811, symbol: 'B' },
-  { position: 6, name: 'Carbon', weight: 12.0107, symbol: 'C' },
-  { position: 7, name: 'Nitrogen', weight: 14.0067, symbol: 'N' },
-  { position: 8, name: 'Oxygen', weight: 15.9994, symbol: 'O' },
-  { position: 9, name: 'Fluorine', weight: 18.9984, symbol: 'F' },
-  { position: 10, name: 'Neon', weight: 20.1797, symbol: 'Ne' },
-];
