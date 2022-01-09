@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { FormControl } from '@angular/forms';
 import { MatPaginator } from '@angular/material/paginator';
 
 @Component({
@@ -9,6 +10,7 @@ import { MatPaginator } from '@angular/material/paginator';
 export class CharactersComponent implements OnInit {
   characters = ELEMENT_DATA;
   pageLength: number = 100;
+  searchKey = new FormControl('');
 
   constructor() {}
 
@@ -18,6 +20,10 @@ export class CharactersComponent implements OnInit {
 
   onChangePage(): void {
     console.log(this.paginator.pageIndex);
+  }
+
+  onSearchCharactor(): void {
+    console.log({ searchKey: this.searchKey.value });
   }
 }
 

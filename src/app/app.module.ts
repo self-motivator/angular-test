@@ -10,6 +10,12 @@ import { CharacterComponent } from './components/character/character.component';
 import { MatListModule } from '@angular/material/list';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatIconModule } from '@angular/material/icon';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { MatCardModule } from '@angular/material/card';
+import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [AppComponent, CharactersComponent, CharacterComponent],
@@ -21,6 +27,12 @@ import { MatFormFieldModule } from '@angular/material/form-field';
     MatListModule,
     MatPaginatorModule,
     MatFormFieldModule,
+    MatInputModule,
+    MatIconModule,
+    FlexLayoutModule,
+    MatCardModule,
+    FormsModule,
+    ReactiveFormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
