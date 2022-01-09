@@ -1,0 +1,19 @@
+<p class="title">Marvel Characters</p>
+<div>
+  <!-- a list of characters -->
+  <mat-nav-list>
+    <a mat-list-item [routerLink]="'/character/' + c.position" *ngFor="let c of characters">
+      <img matListAvatar src="http://i.annihil.us/u/prod/marvel/i/mg/c/e0/535fecbbb9784.jpg" [alt]="c.name">
+      <h3 matLine> {{c.name}} </h3>
+      <p matLine>
+        <span> {{c.weight}} </span>
+        <span class="demo-2"> -- {{c.symbol}} </span>
+      </p>
+      <mat-divider></mat-divider>
+    </a>
+  </mat-nav-list>
+  <!-- Paginator -->
+  <mat-paginator [length]="pageLength" [pageSize]="10" [pageSizeOptions]="[10, 20, 50]" showFirstLastButtons
+    aria-label="Select page" (page)="onChangePage()">
+  </mat-paginator>
+</div>
