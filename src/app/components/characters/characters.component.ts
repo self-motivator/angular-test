@@ -10,7 +10,7 @@ import { CharacterStateService } from 'src/app/services/character.state.service'
   styleUrls: ['./characters.component.scss'],
 })
 export class CharactersComponent implements OnInit {
-  private chractersData$ = this.chStateService.chracters$;
+  private chractersData$ = this.chStateService.chractersData$;
   characters$ = this.chractersData$.pipe(map((p) => p?.results));
   pageLength$ = this.chractersData$.pipe(map((p) => p?.total));
 

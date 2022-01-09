@@ -1,6 +1,7 @@
 export interface C_ITEMS {
   resourceURI: string;
   name: string;
+  type?: string;
 }
 
 export interface C_CATEGORY {
@@ -30,7 +31,7 @@ export interface CHARACTER {
   series?: C_CATEGORY;
   stories?: C_CATEGORY;
   events?: C_CATEGORY;
-  urls?: C_URL;
+  urls?: C_URL[];
 }
 
 export interface RESULT_DATA {

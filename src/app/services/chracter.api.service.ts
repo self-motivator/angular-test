@@ -40,7 +40,7 @@ export class CharacterApiService {
   }
 
   getCharacter(id: number): Observable<RESPONSE_RESULT> {
-    const apiUrl = `${environment.apiUrl}character/${id}`;
+    const apiUrl = `${environment.apiUrl}characters/${id}`;
 
     return this.http.get<RESPONSE_RESULT>(apiUrl, {
       params: this.defaultParams(),

@@ -1,10 +1,39 @@
 <div class="container">
-  <mat-card>
-    <mat-card-title>Someone's Details</mat-card-title>
+  <mat-card *ngIf="character$ | async as cha" class="card_detail">
+    <mat-card-title>{{cha.name}}'s Details</mat-card-title>
     <mat-card-content>
-
-
-
+      <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="16px">
+        <div>
+          <img class="character_image" mat-card-xl-image [src]="cha.thumbnail.path + '.' + cha.thumbnail.extension"
+            [alt]="cha.name">
+        </div>
+        <div fxFlex class="mat-h3">
+          <div>
+            <span class="bold">Name: </span>
+            <span>{{cha.name}}</span>
+          </div>
+          <div *ngIf="cha.comics">
+            <span class="bold">Comics: </span>
+            <span>{{cha.comics.available}}</span>
+          </div>
+          <div *ngIf="cha.series">
+            <span class="bold">Series: </span>
+            <span>{{cha.series.available}}</span>
+          </div>
+          <div *ngIf="cha.stories">
+            <span class="bold">Stories: </span>
+            <span>{{cha.stories.available}}</span>
+          </div>
+          <div *ngIf="cha.events">
+            <span class="bold">Events: </span>
+            <span>{{cha.events.available}}</span>
+          </div>
+          <div *ngIf="cha.urls">
+            <span class="bold">Urls: </span>
+            <a style="margin: 0 8px;" *ngFor="let url of cha.urls" target="_blank" [href]="url.url">{{url.type}}</a>
+          </div>
+        </div>
+      </div>
     </mat-card-content>
   </mat-card>
 </div>
